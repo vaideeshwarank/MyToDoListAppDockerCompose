@@ -1,0 +1,23 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend  # Adjust this to the actual path of your backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    environment:
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - DB_NAME=mydb
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
